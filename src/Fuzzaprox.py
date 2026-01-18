@@ -6,7 +6,7 @@ from src.transformation.FuzzySet import FuzzySet
 
 
 class Fuzzaprox:
-    """ Main class for Fuzzaprox interface"""
+    """ Fuzzy approximation interface - facade class """
     
     def __init__(self):
         self.fuzzy_set_instance = None
@@ -42,42 +42,54 @@ class Fuzzaprox:
     @staticmethod
     def convert_list_to_array(list_data):
         """ Just converts list to array, if not already in ndarray format """
-        if type(list_data) == list:
+        if isinstance(list_data, list):
             np_array = np.array(list_data)
-        elif type(list_data) == np.ndarray:
-            np_array = list_data
+        elif isinstance(list_data, np.ndarray):
+            np_array = np.array(list_data)  # Return a copy to prevent external modifications
         else:
-            raise ValueError("Y data should be in list or np.array format")
+            raise ValueError("Data should be in list or np.ndarray format")
         return np_array
 
     @staticmethod
     def generate_x_axis_from_y_list(y_np_array):
-        """ --- """
-        x_axes = np.linspace(0, len(y_np_array) - 1, len(y_np_array), dtype=int)
+        """
+        Generate sequential integer x-axis indices corresponding to y data points.
+        
+        Creates an array of integer values from 0 to len(y_np_array)-1, which serves
+        as the x-axis for plotting and processing the y data. Each index corresponds
+        to a position in the input array.
+        
+        Args:
+            y_np_array (np.ndarray): Input array of y values
+            
+        Returns:
+            np.ndarray: Array of integer indices [0, 1, 2, ..., len(y_np_array)-1]
+        """
+        x_axes = np.arange(len(y_np_array), dtype=int)
         return x_axes
 
     def set_input_data(self, y_values):
         """ Sets input data, which will be approximated """
-        # convert list to array
+        # Ensure approximated values are in np array format and save it as input
         data_as_array = self.convert_list_to_array(y_values)
         self.orig_data_y = y_values  # set original data
 
-        # normalise data to interval [0,1]
-        normalised_y_np_array = DataService.normalise(data_as_array)
-        self.norm_data_y = normalised_y_np_array
+        # normalize approximated data to interval [0,1] for operations over residuated lattices
+        normalized_y_np_array = DataService.normalise(data_as_array)
+        self.norm_data_y = normalized_y_np_array
 
-        # create x-axis
-        self.data_x = self.generate_x_axis_from_y_list(normalised_y_np_array)
+        # Create x-axis corresponding to input y-values
+        self.data_x = self.generate_x_axis_from_y_list(normalized_y_np_array)
 
     def run(self):
         """ Run the approximation """
-        # set necessary input
+        # Set necessary input
         self.transformation = Transform(self.data_x,
                                         self.norm_data_y,
                                         self.fuzzy_set_instance,
                                         self.fuzzy_set_push)
 
-        # run upper and bottom Approximation
+        # Run Upper and Bottom Approximation
         self.transformation.upper_bottom_forward_ft()  # Calculates Forward F-transforms
         self.transformation.calculate_inverse_ft()  # Calculates Inverse F-transforms
 

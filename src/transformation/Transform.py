@@ -46,6 +46,9 @@ class Transform:
         # transpose lists into arrays
         self.upper_t_fw_data_x = np.asarray(self.upper_t_fw_data_x)
         self.upper_t_fw_data_y = np.asarray(self.upper_t_fw_data_y)
+        #  Convert bottom arrays to numpy arrays as well
+        self.bottom_t_fw_data_x = np.asarray(self.bottom_t_fw_data_x)
+        self.bottom_t_fw_data_y = np.asarray(self.bottom_t_fw_data_y)
 
     def calculate_fw_values_for_x(self, for_x):
         """ Calculates values for FW FT """

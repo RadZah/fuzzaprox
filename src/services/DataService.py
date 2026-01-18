@@ -5,13 +5,13 @@ class DataService:
 
     @staticmethod
     def normalise(orig_values):
-        """ Normalise data to interval [0,1] """
+        """ Normalize data to interval [0,1] """
         range_dict = DataService.calculate_range(orig_values)
-        normalised_array = []
+        normalized_array = []
         for y_orig_val in orig_values:
-            normalised_array.append(round((y_orig_val+abs(range_dict["min_from_range"])) / range_dict["range"], 2))
+            normalized_array.append( round( abs(y_orig_val - range_dict["min_from_range"]) / range_dict["range"], 2))
 
-        return_numpy_array = np.asarray(normalised_array)
+        return_numpy_array = np.asarray(normalized_array)
         return return_numpy_array
 
     @staticmethod
