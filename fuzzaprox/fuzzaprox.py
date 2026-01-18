@@ -1,8 +1,8 @@
 import numpy as np
 
-from src.services.DataService import DataService
-from src.transformation.Transform import Transform
-from src.transformation.FuzzySet import FuzzySet
+from fuzzaprox.services.DataService import DataService
+from fuzzaprox.transformation.Transform import Transform
+from fuzzaprox.transformation.FuzzySet import FuzzySet
 
 
 class Fuzzaprox:
