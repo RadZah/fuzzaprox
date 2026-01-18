@@ -101,9 +101,15 @@ class Fuzzaprox:
 
     def get_fw_approx_upper(self):
         """ Returns UPPER FORWARD approximation """
-        fw_approx_upper_x = self.transformation.upper_t_fw_data_x
-        fw_approx_upper_y = self.transformation.upper_t_fw_data_y
-        fw_approx_upper = {"fw_x": fw_approx_upper_x, "fw_y": fw_approx_upper_y}
+
+        fw_x = self.transformation.upper_t_fw_data_x.copy()
+        fw_y = self.transformation.upper_t_fw_data_y.copy()
+        last_orig_x = self.transformation.original_data_x[-1]
+        while fw_x[-1] > last_orig_x:
+            fw_x = fw_x[:-1]
+            fw_y = fw_y[:-1]
+            
+        fw_approx_upper = {"fw_x": fw_x, "fw_y": fw_y}
         return fw_approx_upper
     
     def get_inv_approx_upper(self):
@@ -113,9 +119,15 @@ class Fuzzaprox:
 
     def get_fw_approx_bottom(self):
         """ Returns BOTTOM FORWARD approximation """
-        fw_approx_bottom_x = self.transformation.bottom_t_fw_data_x
-        fw_approx_bottom_y = self.transformation.bottom_t_fw_data_y
-        fw_approx_bottom = {"fw_x": fw_approx_bottom_x, "fw_y": fw_approx_bottom_y}
+        
+        fw_x = self.transformation.bottom_t_fw_data_x.copy()
+        fw_y = self.transformation.bottom_t_fw_data_y.copy()
+        last_orig_x = self.transformation.original_data_x[-1]
+        while fw_x[-1] > last_orig_x:
+            fw_x = fw_x[:-1]
+            fw_y = fw_y[:-1]
+            
+        fw_approx_bottom = {"fw_x": fw_x, "fw_y": fw_y}
         return fw_approx_bottom
     
     def get_inv_approx_bottom(self):
