@@ -1,5 +1,5 @@
 import numpy as np
-from fuzzaprox.transformation.Operations import Operations
+from .operations import Operations
 
 
 class Transform:

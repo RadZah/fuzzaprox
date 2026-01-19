@@ -1,8 +1,8 @@
 import numpy as np
 
-from fuzzaprox.services.DataService import DataService
-from fuzzaprox.transformation.Transform import Transform
-from fuzzaprox.transformation.FuzzySet import FuzzySet
+from .services import DataService, FuzzaproxResult, ApproxResults, InputData
+from .transformations import Transform
+from .transformations import FuzzySet
 
 
 class Fuzzaprox:
@@ -92,6 +92,9 @@ class Fuzzaprox:
         # Run Upper and Bottom Approximation
         self.transformation.upper_bottom_forward_ft()  # Calculates Forward F-transforms
         self.transformation.calculate_inverse_ft()  # Calculates Inverse F-transforms
+        
+        full_dataclass_result = self.get_full_result()
+        return full_dataclass_result
 
     def get_approximations(self):
         """ --- """
@@ -142,3 +145,44 @@ class Fuzzaprox:
     def get_x_axes(self):
         """ Return just X-axes range with values of integer numbers """
         return self.data_x
+
+    def get_full_result(self) -> FuzzaproxResult:
+        """Final result"""
+        return FuzzaproxResult(
+            input_data = self.get_input_data(),
+            forward = self.get_fw_result(),
+            inverse = self.get_inv_result()
+        )
+
+    def get_input_data(self) -> InputData:
+        """Forward result"""
+        return InputData(
+            x=self.data_x,
+            input_y=self.orig_data_y,
+            normalized_y=self.norm_data_y
+        )
+    
+    def get_inv_result(self) -> ApproxResults:
+        """Inverse result"""
+        return ApproxResults(
+            x=self.get_x_axes(),
+            upper_y=self.get_inv_approx_upper(),
+            bottom_y=self.get_inv_approx_bottom()
+        )
+
+    def get_fw_result(self) -> ApproxResults:
+        """Forward result"""
+        fw_x = self.transformation.upper_t_fw_data_x.copy()
+        fw_y_upper = self.transformation.upper_t_fw_data_y.copy()
+        fw_y_bottom = self.transformation.bottom_t_fw_data_y.copy()
+        last_orig_x = self.transformation.original_data_x[-1]
+        while fw_x[-1] > last_orig_x:
+            fw_x = fw_x[:-1]
+            fw_y_upper = fw_y_upper[:-1]
+            fw_y_bottom = fw_y_bottom[:-1]
+        
+        return ApproxResults(
+            x=fw_x,
+            upper_y=fw_y_upper,
+            bottom_y=fw_y_bottom
+        )

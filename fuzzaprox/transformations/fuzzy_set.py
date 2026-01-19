@@ -1,4 +1,4 @@
-from fuzzaprox.transformation.FuzzySetBasic import FuzzySetBasic
+from .fuzzy_set_basic import FuzzySetBasic
 
 
 class FuzzySet(FuzzySetBasic):
