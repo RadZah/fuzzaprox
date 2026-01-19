@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "fuzzaprox"
 version = "0.0.2"
 description = "F-transform approximation over residuated lattices"
-readme = "README.md"
-requires-python = ">=3.9"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Radovan Zahornadsky", email = "rad.zahornadsky@gmail.com" }]
 dependencies = ["numpy"]
