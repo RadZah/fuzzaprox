@@ -72,6 +72,20 @@ plt.show()
 ```
 
 
+## History
+
+Version 0.0.1 (September 2023) was written as part of a bachelor's thesis.
+The original code is kept on the `archive/v0.0.1` branch (tag `v0.0.1`).
+From 0.0.2 onwards the package was restructured to follow Python conventions.
+
+
+## Acknowledgements
+
+This package grew out of a bachelor's thesis supervised by
+RNDr. Martina Daňková, Ph.D., at the Department of Informatics and Computers,
+Faculty of Science, University of Ostrava, Czech Republic.
+
+
 ## License
 
 See `LICENSE` file for license information.
