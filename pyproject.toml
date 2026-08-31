@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,9 +8,30 @@ version = "0.0.3"
 description = "F-transform approximation over residuated lattices"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.10"
-license = { text = "MIT" }
-authors = [{ name = "Radovan Zahornadsky", email = "rad.zahornadsky@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Radovan Zahornadský", email = "radovan@zahornad.cz" }]
+keywords = ["fuzzy", "fuzzy-logic", "f-transform", "approximation",
+            "residuated-lattice", "lukasiewicz"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Operating System :: OS Independent",
+]
 dependencies = ["numpy"]
+
+[project.urls]
+Homepage = "https://github.com/RadZah/fuzzaprox"
+Repository = "https://github.com/RadZah/fuzzaprox"
+Issues = "https://github.com/RadZah/fuzzaprox/issues"
+Changelog = "https://github.com/RadZah/fuzzaprox/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["."]
