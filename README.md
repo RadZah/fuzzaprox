@@ -36,6 +36,14 @@ res = fa.run()
 inp = res.input_data  # res.input_data: normalized input x/y
 fw = res.forward      # res.forward: forward approximation (x, upper_y, bottom_y)
 inv = res.inverse     # res.inverse: inverse approximation (x, upper_y, bottom_y)
+
+
+# 4) Optional: convert the approximations back to the original data scale
+#    The results above are on the normalized [0,1] scale used internally.
+fwDen = fa.denormalise(fw)   # ApproxResults with both y-series in original units
+invDen = fa.denormalise(inv)
+
+fa.denormalise(inv.upper_y)  # a plain array of y-values works as well
 ```
 
 
