@@ -4,10 +4,8 @@ Unit tests for Fuzzaprox class
 import pytest
 
 import numpy as np
-from .fuzzaprox import Fuzzaprox
-from .. import fuzzaprox.transformations.FuzzySet
-
-
+from fuzzaprox.fuzzaprox import Fuzzaprox
+from fuzzaprox.transformations import FuzzySet
 
 
 class TestFuzzaproxInitialization:
