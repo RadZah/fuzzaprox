@@ -97,12 +97,12 @@ class Transform:
         )
         position = self.get_position_of_curr_x_in_orig_range(curr_x)
         orig_data_value = float(self.normalised_original_data_y[position])
-        orig_data_value = round(orig_data_value, 2)  # DELTE ???? round
+        orig_data_value = round(orig_data_value, 2)  # kept on a 2-decimal scale (already rounded in DataService.normalise)
 
         self.operations.calculate_lukasiewicz_values(fuzzy_set_weight, orig_data_value)
 
     def append_y_do_transform_array(self):
-        """prilepi x do vysupniho array pro FW hodnoty"""
+        """Appends the calculated FW values to the upper and bottom output arrays"""
         self.upper_t_fw_data_y.append(self.operations.get_conjunction_value())
         self.bottom_t_fw_data_y.append(self.operations.get_implication_value())
 
@@ -130,7 +130,7 @@ class Transform:
     ###########################################################
 
     # 1
-    # příprava vstupních polí pro inverzní FT
+    # prepares the output arrays for the inverse FT
     def initiate_inv_array(self):
         """Preparation"""
         # Initialisation of empty array for INVERSION Trasforms
@@ -164,8 +164,7 @@ class Transform:
         fw_ft_upper_value = round(float(self.upper_t_fw_data_y[position_fw_ft]), 2)
         fw_ft_bottom_value = round(float(self.bottom_t_fw_data_y[position_fw_ft]), 2)
 
-        # projdeme celý rozsah fuzzy množiny a pro každý bod spočítáme a přičteme hodnotu
-        # loops through whole interval of FS
+        # loops through the whole interval of the FS and accumulates the value for each point
         for curr_x in range(
             self.actual_fuzzy_set_first_x,
             self.actual_fuzzy_set_last_x,
