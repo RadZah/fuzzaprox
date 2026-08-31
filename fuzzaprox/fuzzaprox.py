@@ -142,6 +142,20 @@ class Fuzzaprox:
         """ Returns normalized-Y values """
         return self.norm_data_y
 
+    def denormalise(self, values):
+        """ Converts values from the normalized [0,1] scale back to the original data scale
+
+        Accepts either a plain array of y-values, or an ApproxResults instance -
+        in that case an ApproxResults with both y-series denormalised is returned.
+        """
+        if isinstance(values, ApproxResults):
+            return ApproxResults(
+                x=values.x,
+                upper_y=DataService.denormalise(values.upper_y, self.orig_data_y),
+                bottom_y=DataService.denormalise(values.bottom_y, self.orig_data_y)
+            )
+        return DataService.denormalise(values, self.orig_data_y)
+
     def get_x_axes(self):
         """ Return just X-axes range with values of integer numbers """
         return self.data_x

@@ -3,6 +3,7 @@ import numpy as np
 
 class DataService:
 
+
     @staticmethod
     def normalise(orig_values):
         """ Normalize data to interval [0,1] """
@@ -14,6 +15,7 @@ class DataService:
         return_numpy_array = np.asarray(normalized_array)
         return return_numpy_array
 
+
     @staticmethod
     def calculate_range(orig_values) -> dict:
         range_dict = {"min_from_range": min(orig_values),
@@ -21,19 +23,15 @@ class DataService:
                       "range": (max(orig_values) - min(orig_values))}
         return range_dict
 
+
     @staticmethod
     def denormalise(values_to_denormalise, orig_values) -> dict:
         """ Reverts data back to original values """
         range_dict = DataService.calculate_range(orig_values)
-        normalised_values = []
+        denormalised_values = []
         y_min = range_dict["min_from_range"]
         for i in range(len(values_to_denormalise)):
-            norm_val = y_min + (values_to_denormalise[i] - y_min) * range_dict["range"]
-            normalised_values.append(norm_val)
-        return_numpy_array = np.asarray(normalised_values)
+            denorm_val = y_min + values_to_denormalise[i] * range_dict["range"]
+            denormalised_values.append(denorm_val)
+        return_numpy_array = np.asarray(denormalised_values)
         return return_numpy_array
-
-
-
-
-        return range_dict
