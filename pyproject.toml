@@ -27,6 +27,9 @@ classifiers = [
 ]
 dependencies = ["numpy"]
 
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "build", "twine", "matplotlib"]
+
 [project.urls]
 Homepage = "https://github.com/RadZah/fuzzaprox"
 Repository = "https://github.com/RadZah/fuzzaprox"
