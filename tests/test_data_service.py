@@ -57,6 +57,11 @@ class TestNormalise:
         result = DataService.normalise([-1.4, 0.0, 1.4])
         assert result == pytest.approx([0.0, 0.5, 1.0])
 
+    def test_normalise_constant_input(self):
+        """Constant data has no range, so every value maps to 0.0 instead of raising"""
+        result = DataService.normalise([5.0, 5.0, 5.0])
+        assert result == pytest.approx([0.0, 0.0, 0.0])
+
     def test_normalise_bounds(self):
         """Test the normalised result always starts at 0 and ends at 1"""
         result = DataService.normalise([3.0, -7.0, 11.0, 0.5])
@@ -119,6 +124,12 @@ class TestDenormalise:
 
         assert np.all(result >= min(orig))
         assert np.all(result <= max(orig))
+
+    def test_denormalise_roundtrip_constant_input(self):
+        """A constant series survives the roundtrip - 0.0 maps back onto the constant"""
+        orig = [5.0, 5.0, 5.0]
+        result = DataService.denormalise(DataService.normalise(orig), orig)
+        assert result == pytest.approx(orig)
 
     def test_denormalise_endpoints(self):
         """Test 0 maps to the data minimum and 1 maps to the data maximum"""

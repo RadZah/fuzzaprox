@@ -8,6 +8,10 @@ class DataService:
     def normalise(orig_values):
         """ Normalize data to interval [0,1] """
         range_dict = DataService.calculate_range(orig_values)
+
+        if range_dict["range"] == 0:  # constant data has no range to scale by
+            return np.zeros(len(orig_values))
+
         normalized_array = []
         for y_orig_val in orig_values:
             normalized_array.append( round( abs(y_orig_val - range_dict["min_from_range"]) / range_dict["range"], 2))

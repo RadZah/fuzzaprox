@@ -25,8 +25,11 @@ class FuzzySetBasic:
         if x < self.fuzzy_set_start or x > self.fuzzy_set_width:  # outside fuzzy set base
             ret = 0
         elif x <= self.kernel_start:
-            ret = (x - self.fuzzy_set_start) / \
-                  (self.kernel_start - self.fuzzy_set_start)
+            if self.kernel_start == self.fuzzy_set_start:  # no rising edge - full membership at once
+                ret = 1
+            else:
+                ret = (x - self.fuzzy_set_start) / \
+                      (self.kernel_start - self.fuzzy_set_start)
         elif x <= self.kernel_end:
             ret = 1
         elif x <= self.fuzzy_set_width:
